@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>타이틀입니다</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src='main.js'></script>
+</head>
+<body>
+    <form action="{% url 'mylist:upload_create' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="image">
+        파일명 <input type="text" name="title">
+        내용설명 <input type="text" name="content">
+        기타 <input type="text" name="etc">
+        
+        <input class="btn btn-primary" type="submit" value="제출" />
+    </form>
+    
+    <table class="table">
+        {% for file in profile %}
+        <thead>
+          <tr>
+            <th>제목</th>
+            <th>이미지</th>
+            <th>내용설명</th>
+            <th>비고</th>
+
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>{{ file.title }}</td>
+            <td><img src="{{ file.image.url }}" style="width: 100px;"></td>
+            <td>{{ file.content }}</td>
+            <td>{{ file.etc }}</td>
+          </tr>
+        </tbody>
+        {{ file.image.url }}<br>
+    {% endfor %}
+    </table>
+<style>
+    form {
+        width: 300px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+
+    }
+    table {
+        width: 100%;
+    }
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid rebeccapurple;
+    }
+</style>
+
+
+</body>
+</html>

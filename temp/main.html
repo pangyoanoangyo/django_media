@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>미디어 페이지</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+
+    <h1> 미디어 페이지 입니다 </h1>
+
+    <form action="{% url 'mylist:upload_create' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        제목 <br>
+        <input type="text" name="title"> <br>
+        내용 <br>
+        <input type="file" name="image"><br>
+        <input type="submit" value="Submit" />
+    </form>
+
+
+ -->
+
+
+    <!-- <img src="/images/bootstrap-icons.png" alt=""> -->
+<!--     
+    {% for file in profiles %}
+    <img src="/images/{{profiles.image.url}}.png" alt="">
+    {% endfor %} -->
+
+        
+    {% for file in profile %}
+    <h1> {{file.title}} </h1> 
+    <img src="{{ file.image.url }}">
+    <br><br>
+    {% endfor %}
+
+
+</body>
+</html>
