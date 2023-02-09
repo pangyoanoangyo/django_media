@@ -1,0 +1,84 @@
+{% extends "layout/frame.html" %}
+
+{% block contents %}
+
+<div id="contain" class="container-fluid">
+  <div class="row">
+    <h3><Details>내용수정</Details></h3>
+  </div>
+  <div class="row">
+
+    <form class="form-group" action="{% url 'mylist:upload_modify' profile.id %}" method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <div id="div_in" class="input-group">
+          <div class="input-group-text">구     분</div>
+          <input class="form-control" placeholder="작성하세요" type="text" name="title" value="{{profile.title}}">
+        </div>
+        <div id="div_in" class="input-group">
+          <div class="input-group-text"> 내     용 </div>
+          <input class="form-control" placeholder="작성하세요" type="text" name="content" value="{{profile.content}}">
+        </div>
+        <div id="div_in" class="input-group">
+          <div class="input-group-text"> 담당자 </div>
+          <input class="form-control" placeholder="작성하세요" type="text" name="person1" value="{{profile.person1}}">
+        </div>
+        <div id="div_in" class="input-group">
+          <div class="input-group-text"> 연락처 </div>
+          <input class="form-control" placeholder="작성하세요" type="text" name="person_phone1" value="{{profile.person_phone1}}">
+        </div>
+        <div id="div_in" class="input-group">
+          <div class="input-group-text"> 주     소 </div>
+          <input class="form-control" placeholder="작성하세요" type="text" name="address" value="{{profile.address}}">
+        </div>
+        <div id="div_in" class="input-group">
+          <div class="input-group-text"> 기     타 </div>
+          <input class="form-control" placeholder="작성하세요" type="text" name="etc" value="{{profile.etc}}">
+        </div>
+        <div id="div_in" class="input-group">
+          <div class="input-group-text"> 사진 업로드 </div>
+          <div class="form-control">
+            <input class="btn btn-outline-info btn-sm" type="file" name="image">
+          </div>
+        </div>
+        <div id="div_in" class="input-group">
+          <div class="input-group-text"> 현재 이미지 </div>
+          <div class="form-control">
+          <img src="{{profile.image.url}}" width="200px" >
+          </div>
+        <!-- <div id="div_in" class="input-group">
+          <div class="input-group-text"> 파일명 </div>
+          <div class="form-control">{{profile.image.url}}</div>
+        </div>
+         -->
+        <div id="div_in" class="input-group">
+          <a href="{% url 'mylist:main' %}" class="btn btn-secondary" style="font-size:0.5vw; ">목록</a>
+          <input class="btn btn-primary" type="submit" value="수정완료" style="font-size:0.5vw;">
+        </div>
+        
+    </form>
+
+  </div>
+</div>
+
+<style>
+    form {
+        width: 300px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+    }
+    #div_in{
+      margin: 5px 0;
+    }
+
+
+    @media screen and (min-width: 1000px){
+      #contain{
+        width: 90%;
+      }
+    }
+
+</style>
+{% endblock %}

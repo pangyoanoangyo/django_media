@@ -1,0 +1,58 @@
+{% extends "layout/frame.html" %}
+
+{% block contents %}
+
+
+    <form action="{% url 'mylist:upload_create' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="image">
+        파일명 <input type="text" name="title">
+        내용설명 <input type="text" name="content">
+        기타 <input type="text" name="etc">
+        
+        <input class="btn btn-primary" type="submit" value="제출"  style="font-size:0.5vw;"/>
+    </form>
+    
+    <table class="table">
+        {% for file in profile %}
+        <thead>
+          <tr>
+            <th>제목</th>
+            <th>이미지</th>
+            <th>내용설명</th>
+            <th>비고</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ file.title }}</td>
+            <td><img src="{{ file.image.url }}" style="width: 100px;"></td>
+            <td>{{ file.content }}</td>
+            <td>{{ file.etc }}</td>
+          </tr>
+        </tbody>
+        {{ file.image.url }}<br>
+    {% endfor %}
+    </table>
+<style>
+    form {
+        width: 300px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+
+    }
+    table {
+        width: 100%;
+    }
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid rebeccapurple;
+    }
+</style>
+
+
+
+{% endblock %}

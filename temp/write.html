@@ -1,0 +1,59 @@
+{% extends "layout/frame.html" %}
+
+{% block contents %}
+
+<div class="container-fluid">
+  <div class="row">
+    <h3><Details>내용작성</Details></h3>
+  </div>
+  <div class="row">
+
+    <form class="row row-cols-lg-auto g-3 align-items-center" action="{% url 'mylist:upload_create' %}" method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %} 
+        <div class="input-group">
+          <div class="input-group-text">구     분</div>
+          <input class="form-control" placeholder="작성하세요" type="text" name="title" >
+        </div>
+        <div class="input-group">
+          <div class="input-group-text"> 내     용 </div>
+          <input class="form-control" placeholder="작성하세요" type="text" name="content">
+        </div>
+        <div class="input-group">
+          <div class="input-group-text"> 담당자 </div>
+          <input class="form-control" placeholder="작성하세요" type="text" name="person1">
+        </div>
+        <div class="input-group">
+          <div class="input-group-text"> 연락처 </div>
+          <input class="form-control" placeholder="작성하세요" type="text" name="person_phone1">
+        </div>
+        <div class="input-group">
+          <div class="input-group-text"> 주     소 </div>
+          <input class="form-control" placeholder="작성하세요" type="text" name="address">
+        </div>
+        <div class="input-group">
+          <div class="input-group-text"> 기     타 </div>
+          <input class="form-control" placeholder="작성하세요" type="text" name="etc">
+        </div>
+        <div class="input-group">
+          <div class="input-group-text"> 사진 업로드 </div>
+          <div class="form-control"><input class="btn btn-outline-info btn-sm" type="file" name="image"></div>
+        </div>
+        <div class="input-group">
+          <a href="{% url 'mylist:main' %}" class="btn btn-secondary" style="font-size:0.5vw; ">목록</a>
+          <input class="btn btn-primary" type="submit" value="제출" style="font-size:0.5vw;">
+        </div>
+    </form>
+
+  </div>
+</div>
+
+<style>
+    form {
+        width: 300px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+{% endblock %}

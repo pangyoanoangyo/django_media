@@ -1,0 +1,99 @@
+{% extends "layout/frame.html" %}
+
+{% block contents %}
+
+<div id="contain" class="container-fluid">
+  <div class="row">
+    <h3><Details>세부정보</Details></h3>
+    <table class="table table-striped">
+
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>내용</th>
+          <th>담당자</th>
+          <th>연락처</th>
+          <th>주소</th>
+          <th>기타</th>
+        
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ profile.title }}</td>
+          <td>{{ profile.content }}</td>
+          <td>{{ profile.person1 }}</td>
+          <td>{{ profile.person_phone1 }}</td>
+          <td>{{ profile.address }}</td>
+          <td>{{ profile.etc }}</td> 
+          
+        </tr>
+        <tr>
+          <td colspan="1" style="background-color: rgb(221, 221, 221)">이미지</td>
+          {% if profile.image.url is not valid %}
+          <td colspan="5"><img width="300px" src="{{ profile.image.url }}" ></td> 
+          {% else %}
+          <td colspan="5">이미지가 없습니다.ㅜ_ㅜ</td> 
+          {% endif %}
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <a href="{% url 'mylist:main' %}" class="btn btn-secondary" style="font-size:0.5vw; ">목록</a>
+  <a href="{% url 'mylist:modify' profile.id %}" class="btn btn-outline-secondary" style="font-size:0.5vw; ">수정</a>
+  <button onclick="auok()" class="btn btn-danger" style="font-size:0.5vw; ">삭제</button>
+  <!-- <a href="{% url 'mylist:delete' profile.id %}" class="btn btn-outline-danger" style="font-size:0.5vw; ">삭제</a> -->
+</div>
+<script>
+  function auok(){
+    if(confirm("정말 삭제하시겠습니까?")){
+      location.href="{% url 'mylist:delete' profile.id %}";
+    }
+  }
+</script>
+
+<style>
+  h3{
+    padding: 10px;
+    color:darkgray;
+  }
+  
+    form {
+        width: 300px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+
+    }
+    table {
+        width: 100%;
+    }
+    th{
+      font-size: 10px;
+      text-align: center;
+      border-bottom: 0.2px solid grey;
+    }
+    td {
+      font-size: 10px;
+      padding: 5px;
+      text-align: left;
+      justify-items: center;
+      align-items: center;
+      border-bottom: 0.2px solid grey;
+      cursor: pointer;
+    }
+
+    @media screen and (min-width: 1000px){
+      #contain{
+        width: 90%;
+      }
+    }
+
+    @media screen and (max-width: 430px){
+      #hide_id{
+        display: none;
+      }
+    }
+</style>
+
+{% endblock %}
