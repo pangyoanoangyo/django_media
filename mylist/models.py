@@ -9,6 +9,7 @@ class Profile(models.Model):
     
     def __str__(self):
         return self.title
+    
 class Profile_add(models.Model):
     title = models.CharField(max_length=200,null=True)
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)

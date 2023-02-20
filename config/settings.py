@@ -26,11 +26,12 @@ SECRET_KEY = 'django-insecure-bi-b3hm@qkzx4n!z%yvhue5bkdw754nu$!r4@*5(jy6fblk_9_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost','port-0-django-media-3a9t2bldx674lx.sel3.cloudtype.app']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','port-0-django-media-3a9t2bldx674lx.sel3.cloudtype.app','awssangfeel-env.eba-jpppqp88.ap-northeast-2.elasticbeanstalk.com']
 
 CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1'
                          ,'http://localhost'
-                         ,'https://port-0-django-media-3a9t2bldx674lx.sel3.cloudtype.app']
+                         ,'https://port-0-django-media-3a9t2bldx674lx.sel3.cloudtype.app',
+                         'http://awssangfeel-env.eba-jpppqp88.ap-northeast-2.elasticbeanstalk.com']
 
 # Application definition
 
