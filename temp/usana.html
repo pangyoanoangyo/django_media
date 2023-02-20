@@ -44,10 +44,14 @@
           <tr>
             <td>{{ file.title }}</td>
             <td id="product"></td>
+            <!-- {% if NaN in file.point or NaN in file.price  %} -->
+            <td id="price">0</td>
+            <td id="point">0</td>
+            {% else %}
             <td id="price">{{ file.price|intcomma}}</td> <!-- 천단위에 콤마찍는 라이브러리-->
             <td id="point">{{ file.point }}point</td>
+            {% endif %}
             <td id="pp"></td>
-
             <td id="product_price"></td>
             <!-- <td><a href="{% url 'mylist:modify' file.id %}" class="btn btn-outline-secondary btn-sm" style="font-size:0.5vw; ">수정</a></td> -->
           </tr>
@@ -116,15 +120,13 @@
           let result_point = priceP * number;
           product_price[i].innerHTML = result_price.toLocaleString() + '원 / '+ result_point + 'Point';
 
-          //총 금액
-          let result_prices = 0;
-          let result_points = 0;
-          for (let i = 0; i <73; i++) {
-            result_prices = result_price[i]+result_prices;
-            result_points = result_point[i]+result_points;
-          }
-        document.getElementById('result_price').innerHTML = result_prices + '원';
-        document.getElementById('result_point').innerHTML = result_points + 'Point';
+    
+          result_price = result_price;
+          console.log(result_price);
+
+
+        document.getElementById('result_price').innerHTML = result_price.toLocaleString();
+        //document.getElementById('result_point').innerHTML = result_point + 'Point';
 
         }
       });
@@ -149,12 +151,6 @@
     //pp[i].innerHTML = pp[i].innerHTML.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     //price[i].innerHTML = priceValue.toLocaleString();
   }
-  
-  console.log(pp);
-  console.log(priceValue);
-  console.log(point);
-  typeof pp;
-
 
   //document.addEventListener('click', function(e) {
     /* if (e.target.id === 'hide_id') {
