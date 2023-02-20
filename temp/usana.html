@@ -1,0 +1,223 @@
+{% extends "layout/frame.html" %}
+
+{% block contents %}
+{% load humanize %} <!-- 천단위에 콤마찍는 라이브러리-->
+
+
+<div id="contain" class="container-fluid">
+
+    <h1>포인트 관리</h1>
+    <hr>
+    <div class="container">
+      <div>
+        <label for="result_price">총 금액</label>
+        <p id="result_price"></p>
+      </div>
+      <div>
+        <p id="result_count">총 {{ profile.count }}개</p>
+        <label for="result_point">포인트</label>
+        <p id="result_point"></p>
+      </div>
+    </div>
+    <hr>
+
+    
+
+
+
+
+    <table class="table align-items-center">
+        <thead>
+          <tr>
+            <th>품명</th>
+            <th>수량</th>
+            <th>가격</th>
+            <th>포인트</th>
+            <th>1 포인트당 금액</th>
+
+            <th>비고</th>
+            <!-- <th>수정</th> -->
+          </tr>
+        </thead>
+        <tbody>
+        {% for file in profile %}
+          <tr>
+            <td>{{ file.title }}</td>
+            <td id="product"></td>
+            <td id="price">{{ file.price|intcomma}}</td> <!-- 천단위에 콤마찍는 라이브러리-->
+            <td id="point">{{ file.point }}point</td>
+            <td id="pp"></td>
+
+            <td id="product_price"></td>
+            <!-- <td><a href="{% url 'mylist:modify' file.id %}" class="btn btn-outline-secondary btn-sm" style="font-size:0.5vw; ">수정</a></td> -->
+          </tr>
+       {% endfor %}
+        </tbody>
+        <!-- {{ file.image.url }}<br> -->
+    </table>
+    <a href="{% url 'mylist:write' %}" class="btn btn-primary"  style="font-size:0.5vw;">신규 작성</a>
+</div>
+<script>
+  
+  let product = document.querySelectorAll('#product');
+  let product_price = document.querySelectorAll('#product_price');
+  let numberText = document.querySelectorAll('#numberText');
+
+  let pp = document.querySelectorAll('#pp');
+  let price = document.querySelectorAll('#price');
+  let point = document.querySelectorAll('#point');
+
+  let result_price = document.querySelector('#result_price');
+
+  for (let i = 0; i <73; i++) {
+      // "+" 버튼 생성
+      let addButton = document.createElement('button');
+      addButton.textContent = '+';
+      product[i].appendChild(addButton);
+
+      // 숫자 텍스트 생성
+      let numberText = document.createTextNode(0);
+      numberText.id = 'numberText';
+      product[i].appendChild(numberText);
+
+      // "-" 버튼 생성
+      let minusButton = document.createElement('button');
+      minusButton.textContent = '-';
+      product[i].appendChild(minusButton);
+
+      // "+" 버튼에 이벤트 리스너 추가
+      addButton.addEventListener('click', function() {
+        let number = parseInt(numberText.textContent);
+        number++;
+        numberText.textContent = number;
+      });
+
+      // "-" 버튼에 이벤트 리스너 추가
+      minusButton.addEventListener('click', function() {
+        let number = parseInt(numberText.textContent);
+        number--;
+        numberText.textContent = number;
+      });
+
+      // 가격과 숫자를 곱한 값을 보여주는 부분
+      document.addEventListener('click', function(e) {
+        if (e.target.tagName === 'BUTTON') {
+          let priceV = price[i].textContent;
+          priceV = priceV.replace(/,/g, ''); // 콤마 제거
+          priceV = parseInt(priceV); // 문자열을 숫자로 변환
+
+          let priceP = point[i].textContent;
+          priceP = priceP.replace(/point/g, ''); // point 제거
+          priceP = parseInt(priceP); // 문자열을 숫자로 변환
+
+          let number = numberText.textContent;
+          number = parseInt(number);
+          let result_price = priceV * number;
+          let result_point = priceP * number;
+          product_price[i].innerHTML = result_price.toLocaleString() + '원 / '+ result_point + 'Point';
+
+          //총 금액
+          let result_prices = 0;
+          let result_points = 0;
+          for (let i = 0; i <73; i++) {
+            result_prices = result_price[i]+result_prices;
+            result_points = result_point[i]+result_points;
+          }
+        document.getElementById('result_price').innerHTML = result_prices + '원';
+        document.getElementById('result_point').innerHTML = result_points + 'Point';
+
+        }
+      });
+}
+
+  
+  for (let i = 0; i < pp.length; i++) {
+    let priceValue = price[i].innerHTML;
+    let pointValue = point[i].innerHTML;
+
+    priceValue = priceValue.replace(/,/g, ''); // 콤마 제거
+    pointValue = pointValue.replace(/point/g, ''); // point 제거
+
+    priceValue = parseInt(priceValue); // 문자열을 숫자로 변환
+    pointValue = parseInt(pointValue); // 문자열을 숫자로 변환
+
+    //정수만 출력
+    pp[i].innerHTML = Math.floor(priceValue / pointValue);
+
+    //pp에 1000원 단위로 콤마찍기
+    pp[i].innerHTML = pp[i].innerHTML.toLocaleString() + '원';
+    //pp[i].innerHTML = pp[i].innerHTML.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    //price[i].innerHTML = priceValue.toLocaleString();
+  }
+  
+  console.log(pp);
+  console.log(priceValue);
+  console.log(point);
+  typeof pp;
+
+
+  //document.addEventListener('click', function(e) {
+    /* if (e.target.id === 'hide_id') {
+      e.target.style.display = 'none';
+    } else {
+      e.target.style.display = 'block';
+    } */
+    //window.location.href = '/modify'+e.target.id;
+    //window.location.href = "{% url 'mylist:modify' 1 %}";
+    
+
+
+    function delete_confirm(){
+        if(confirm("정말 삭제하시겠습니까?")){
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script>
+<style>
+    form {
+        width: 300px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+
+    }
+    table {
+        width: 100%;
+    }
+    th{
+      font-size: 10px;
+      text-align: center;
+      border-bottom: 0.2px solid grey;
+    }
+    td {
+      font-size: 10px;
+      padding: 5px;
+      text-align: left;
+      justify-items: center;
+      align-items: center;
+      border-bottom: 0.2px solid grey;
+      cursor: pointer;
+    }
+    tr:hover {
+      background-color: rgb(16, 201, 255);
+      color: white;
+    }
+
+    @media screen and (min-width: 1000px){
+      #contain{
+        width: 90%;
+      }
+    }
+
+    @media screen and (max-width: 430px){
+      #hide_id{
+        display: none;
+      }
+    }
+</style>
+
+
+
+{% endblock %}

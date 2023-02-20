@@ -1,0 +1,1388 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>UNISTARS Harmony Team</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">     
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+  <title>USANA PAGE</title>
+	
+	<script type="text/javascript">
+		if(!wcs_add) var wcs_add = {};
+		wcs_add["wa"] = "6d9775a1847d50";
+		if(window.wcs) {
+		  wcs_do();
+		}
+	</script>
+
+	<script>
+	
+		var totWon = 0;
+		var totWon10 = 0;
+		var totPt = 0;
+			
+		function chgWon(tWon, tWon10, tPt, tPdt, pCnt){	
+
+			$('#txtWon').text(tWon.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+			$('#txtWon10').text(tWon10.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+			
+			$('#txtPt').text(tPt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " P");
+			$('#'+tPdt).text(pCnt);
+		}
+		
+		function plusWon(selWon, selPt, tPdt){
+		
+			var pCnt = $('#'+tPdt).text();
+			pCnt = pCnt*1;
+			
+			if(((tPdt == "pdt35") && pCnt == 0)|| (tPdt != "pdt35" )){
+				
+				totWon = totWon + selWon;	
+				
+				if(tPdt == "pdt35" || tPdt == "pdt50" || tPdt == "pdt40" || tPdt == "pdt52" || tPdt == "pdt54" || tPdt == "pdt41" || tPdt == "pdt42" || tPdt == "pdt43" || tPdt == "pdt44" || tPdt == "pdt45" || tPdt == "pdt46" || tPdt == "pdt47" || tPdt == "pdt48" || tPdt == "pdt56" || tPdt == "pdt57" || tPdt == "pdt58" || tPdt == "pdt59" || tPdt == "pdt60"|| tPdt == "pdt61" || tPdt == "pdt62" || tPdt == "pdt63" || tPdt == "pdt64" || tPdt == "pdt65" || tPdt == "pdt66" || tPdt == "pdt67" ){ //스타터킷일경우 할인 안함
+					totWon10 = totWon10 + selWon;
+				}else{
+					totWon10 = totWon10 + selWon*0.9;	
+				}
+				
+				totPt = totPt + selPt;
+				
+				pCnt = pCnt*1 +1;
+				
+				chgWon(totWon,totWon10, totPt, tPdt, pCnt);
+				
+			}
+		}
+		
+		function minWon(selWon, selPt, tPdt){
+			var pCnt = $('#'+tPdt).text();
+			
+			pCnt = pCnt*1;
+			
+			if(pCnt > 0){
+			
+				pCnt = pCnt - 1;			
+				totWon = totWon - selWon;
+				
+				if(tPdt == "pdt35" || tPdt == "pdt50" || tPdt == "pdt40" || tPdt == "pdt41"  || tPdt == "pdt52" || tPdt == "pdt54" || tPdt == "pdt42" || tPdt == "pdt43" || tPdt == "pdt44" || tPdt == "pdt45" || tPdt == "pdt46" || tPdt == "pdt47" || tPdt == "pdt48" || tPdt == "pdt56" || tPdt == "pdt57" || tPdt == "pdt58" || tPdt == "pdt59" || tPdt == "pdt60"|| tPdt == "pdt61" || tPdt == "pdt62" || tPdt == "pdt63" || tPdt == "pdt64" || tPdt == "pdt65" || tPdt == "pdt66" || tPdt == "pdt67"){ //스타터킷일경우 할인 안함
+					totWon10 = totWon10 - selWon;
+				}else{
+					totWon10 = totWon10 - selWon*0.9;	
+				}
+				
+				totPt = totPt - selPt;			
+				
+				if(totWon < 0)	totWon = 0;
+				if(totWon10 < 0)	totWon10 = 0;
+				if(totPt < 0)	totPt = 0;
+				if(pCnt < 0)	pCnt = 0;
+			
+				chgWon(totWon,totWon10, totPt, tPdt, pCnt);
+			}
+		}
+		
+		function chkView(){
+					
+			for(var i=1; i<10; i++){
+				if($('#pdt0'+i).text() == 0) $('#tr0'+i).hide();
+			}
+			
+			for(var i=10; i<100; i++){
+				if($('#pdt'+i).text() == 0) $('#tr'+i).hide();
+			}
+			
+			$('#addPd').show();
+			$('#viewCk').hide();
+			$('#tit01').hide();
+			$('#tit02').hide();
+			$('#tit03').hide();
+			$('#tit05').hide();
+
+		}
+		
+		function addPrd(){
+					
+			for(var i=1; i<10; i++){
+				if($('#pdt0'+i).text() == 0) $('#tr0'+i).show();
+			}
+			
+			for(var i=10; i<100; i++){
+				if($('#pdt'+i).text() == 0) $('#tr'+i).show();
+			}
+			
+			$('#viewCk').show();
+			$('#addPd').hide();
+			$('#tit01').show();
+			$('#tit02').show();
+			$('#tit03').show();
+			$('#tit05').show();
+		}
+		
+		function reSet(){
+			window.location.reload() 
+		}
+
+		function funLoad(){
+			var Cheight = $(window).height() -232;
+			$('#container').height(Cheight);
+			
+			$('#addPd').hide();
+		}
+		window.onload = funLoad;
+		window.onresize = funLoad;		
+		
+	</script>
+</head>
+<body class="hold-transition skin-blue sidebar-mini" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+<div class="wrapper">
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        <img src="./unistars.png" height="30">
+		<button id="viewCk" type="button" onclick="chkView();" class="btn btn-success btn-sm pull-right">
+			<b>선택보기</b>
+		</button>&nbsp;
+		<button id="addPd" type="button" onclick="addPrd();" class="btn btn-success btn-sm pull-right">
+			<b>제품추가</b>
+		</button>&nbsp;		
+		<button type="button" onclick="reSet();" class="btn btn-success btn-sm pull-right">
+			<b>초기화</b>
+		</button>
+		
+		
+      </h1>
+    </section>
+    <style>
+        #title_id{
+        background-color: rgb(65, 143, 222);
+        color:white;
+
+        }
+    </style>
+    
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+	    
+		<div class="col-xs-4">
+		  <!-- small box -->
+		  <div class="small-box bg-aqua">
+			<div class="inner">
+			  <h4 id="txtWon">0</h4>
+			</div>			
+		  </div>
+		</div>
+
+		<div class="col-xs-4">
+		  <!-- small box -->
+		  <div class="small-box bg-aqua">
+			<div class="inner">
+			  <h4 id="txtWon10">0</h4>
+			</div>			
+		  </div>
+		</div>
+		
+		<div class="col-xs-4">
+		  <!-- small box -->
+		  <div class="small-box bg-aqua">
+			<div class="inner">
+			  <h4 id="txtPt">0P</h4>
+			</div>			
+		  </div>
+		</div>				
+		<div class="col-xs-12">		
+		  <div  class="box">
+			<!-- /.box-header -->
+			<div id="container" style="overflow-y:scroll; " class="box-body no-padding">
+			  <table class="table table-condensed">
+                <tr id="tit01">
+                  <!-- <th colspan="6" id="title_id"> NUTRITIONALS</th> -->
+                  <th id="title_id"> NUTRITIONALS</th>
+                  <th id="title_id">가격</th>
+                  <th id="title_id">포인트</th>
+                  <th id="title_id">포인트/단가</th>                  
+                  <th colspan="3" id="title_id">수 량</th>
+                  
+                </tr>
+				<tr id="tr01">
+				  <td>헬스팩</td>
+				  <td>149,000</td>
+				  <td>55P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(149000,55, 'pdt01');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(149000,55, 'pdt01');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt01">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr02">
+				  <td>뉴-셀센셜즈</td>
+				  <td>105,000</td>
+				  <td>40P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(105000,40, 'pdt02');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(105000,40, 'pdt02');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt02">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr55">
+				  <td>이소플라본플러스</td>
+				  <td>38,500</td>
+				  <td>15P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(38500,15, 'pdt55');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(38500,15, 'pdt55');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt55">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr03">
+				  <td>유사니멀즈</td>
+				  <td>33,500</td>
+				  <td>11P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(33500,11, 'pdt03');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(33500,11, 'pdt03');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt03">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr04">
+				  <td>프로후라바놀C600</td>
+				  <td>52,400</td>
+				  <td>24P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(52400,24, 'pdt04');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(52400,24, 'pdt04');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt04">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr23">
+				  <td>프로후라바놀C300</td>
+				  <td>53,500</td>
+				  <td>24P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(53500,24, 'pdt23');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(53500,24, 'pdt23');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt23">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr05">
+				  <td>코퀴논30</td>
+				  <td>54,500</td>
+				  <td>21P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(54500,21, 'pdt05');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(54500,21, 'pdt05');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt05">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr06">
+				  <td>비전엑스 DS</td>
+				  <td>47,200</td>
+				  <td>21P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(47200,21, 'pdt06');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(47200,21, 'pdt06');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt06">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr07">
+				  <td>마그네칼D</td>
+				  <td>33,500</td>
+				  <td>13P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(33500,13, 'pdt07');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(33500,13, 'pdt07');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt07">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr08">
+				  <td>뉴-프로코사 글루코사민</td>
+				  <td>58,500</td>
+				  <td>22P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(58500,22, 'pdt08');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(58500,22, 'pdt08');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt08">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr51">
+				  <td>비타민D</td>
+				  <td>22,000</td>
+				  <td>10P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(22000,10, 'pdt51');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(22000,10, 'pdt51');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt51">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr09">
+				  <td>프로바이오틱</td>
+				  <td>36,500</td>
+				  <td>15P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(36500,15, 'pdt09');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(36500,15, 'pdt09');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt09">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr10">
+				  <td>알로엔즈</td>
+				  <td>56,000</td>
+				  <td>22P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(56000,22, 'pdt10');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(56000,22, 'pdt10');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt10">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr11">
+				  <td>헤파실</td>
+				  <td>59,500</td>
+				  <td>24P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(59500,24, 'pdt11');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(59500,24, 'pdt11');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt11">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr12">
+				  <td>바이오메가</td>
+				  <td>38,500</td>
+				  <td>14P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(38500,14, 'pdt12');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(38500,14, 'pdt12');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt12">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr13">
+				  <td>E-프라임</td>
+				  <td>57,000</td>
+				  <td>19P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(57000,19, 'pdt13');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(57000,19, 'pdt13');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt13">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr14">
+				  <td>폴리 비타민C</td>
+				  <td>29,000</td>
+				  <td>11P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(29000,11, 'pdt14');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(29000,11, 'pdt14');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt14">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr15">
+				  <td>프로글루카뮨</td>
+				  <td>57,500</td>
+				  <td>22P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(57500,22, 'pdt15');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(57500,22, 'pdt15');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt15">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr82">
+				  <td>메타볼리즘</td>
+				  <td>56,000</td>
+				  <td>22P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(56000,22, 'pdt82');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(56000,22, 'pdt82');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt82">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr20">
+				  <td>항산화 선물세트</td>
+				  <td>108,000</td>
+				  <td>43P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(108000,43, 'pdt20');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(108000,43, 'pdt20');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt20">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr22">
+				  <td>어린이선물세트</td>
+				  <td>70,000</td>
+				  <td>23P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(70000,23, 'pdt22');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(70000,23, 'pdt22');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt22">0</span></b>
+					</button>
+				  </td>
+				</tr>
+                <tr id="tit02">
+                  <th colspan="6" id="title_id">FOOD & ENERGY</th>
+                </tr>
+				<tr id="tr34">
+				  <td>화이버지 플러스</td>
+				  <td>42,500</td>
+				  <td>14P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(42500,14, 'pdt34');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(42500,14, 'pdt34');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt34">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr16">
+				  <td>뉴트리밀-OO맛</td>
+				  <td>48,500</td>
+				  <td>15P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(48500,15, 'pdt16');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(48500,15, 'pdt16');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt16">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr17">
+				  <td>웨이 프로틴 플러스(우유)</td>
+				  <td>34,500</td>
+				  <td>12P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(34500,12, 'pdt17');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(34500,12, 'pdt17');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt17">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr18">
+				  <td>소이 프로틴 플러스(대두)</td>
+				  <td>34,500</td>
+				  <td>12P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(34500,12, 'pdt18');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(34500,12, 'pdt18');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt18">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr70">
+				  <td>에프오에스 액티브</td>
+				  <td>43,500</td>
+				  <td>14P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(43500,14, 'pdt70');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(43500,14, 'pdt70');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt70">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr71">
+				  <td>뉴트리밀 액티브</td>
+				  <td>76,000</td>
+				  <td>22P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(76000,22, 'pdt71');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(76000,22, 'pdt71');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt71">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr79">
+				  <td>액티브 프로틴 드링크믹스</td>
+				  <td>47,000</td>
+				  <td>15P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(47000,15, 'pdt79');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(47000,15, 'pdt79');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt79">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr80">
+				  <td>액티브 프로틴 드링크믹스(28개별포장)</td>
+				  <td>97,500</td>
+				  <td>25P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(97500,25, 'pdt80');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(97500,25, 'pdt80');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt80">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr81">
+				  <td>액티브 미네랄 드링크 번들팩</td>
+				  <td>128,000</td>
+				  <td>32P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(128000,32, 'pdt81');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(128000,32, 'pdt81');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt81">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr72">
+				  <td>허브티 믹스</td>
+				  <td>28,000</td>
+				  <td>6P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(28000,6, 'pdt72');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(28000,6, 'pdt72');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt72">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr73">
+				  <td>액티브 미네랄 드링크믹스</td>
+				  <td>35,000</td>
+				  <td>8P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(35000,8, 'pdt73');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(35000,8, 'pdt73');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt73">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr77">
+				  <td>마그네슘 파우더 믹스</td>
+				  <td>43,000</td>
+				  <td>14P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(43000,14, 'pdt77');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(43000,14, 'pdt77');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt77">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr78">
+				  <td>캄 리스폰스 에센셜 오일 밤</td>
+				  <td>23,000</td>
+				  <td>8P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(23000,8, 'pdt78');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(23000,8, 'pdt78');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt78">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr19">
+				  <td>뉴트리밀 베이직 프로그램</td>
+				  <td>484,000</td>
+				  <td>165P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(484000,165, 'pdt19');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(484000,165, 'pdt19');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt19">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr21">
+				  <td>뉴트리밀 어드밴스드 프로그램</td>
+				  <td>707,500</td>
+				  <td>253P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(707500,240, 'pdt21');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(707500,240, 'pdt21');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt21">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr74">
+				  <td>뉴트리밀 액티브(14개입)</td>
+				  <td>78,000</td>
+				  <td>19P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(78000,19, 'pdt74');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(78000,19, 'pdt74');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt74">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr75">
+				  <td>액티브 뉴트리션 베이직-싱글</td>
+				  <td>631,000</td>
+				  <td>187P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(631000,187, 'pdt75');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(631000,187, 'pdt75');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt75">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr83">
+				  <td>액티브 뉴트리션 베이직-소이</td>
+				  <td>623,000</td>
+				  <td>199P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(623000,199, 'pdt83');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(623000,199, 'pdt83');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt83">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr76">
+				  <td>액티브 뉴트리션 어드밴스드</td>
+				  <td>881,500</td>
+				  <td>295P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(881500,295, 'pdt76');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(881500,295, 'pdt76');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt76">0</span></b>
+					</button>
+				  </td>
+				</tr>
+                <tr id="tit03">
+                  <th colspan="6" id="title_id">CELAVIVE</th>
+                </tr>
+				
+				<tr id="tr40">
+				  <td>셀라비브 컨디셔닝 메이크업리무버</td>
+				  <td>33,000</td>
+				  <td>16P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(33000,16, 'pdt40');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(33000,16, 'pdt40');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt40">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				
+				<tr id="tr41">
+				  <td>셀라비브 퍼펙팅 토너</td>
+				  <td>44,500</td>
+				  <td>19P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(44500,19, 'pdt41');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(44500,19, 'pdt41');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt41">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				
+				<tr id="tr52">
+				  <td>셀라비브 하이드레이팅 시트마스크</td>
+				  <td>27,500</td>
+				  <td>10P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(27500,10, 'pdt52');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(27500,10, 'pdt52');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt52">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				
+				<tr id="tr54">
+				  <td>셀라비브 젠틀 밀크 클렌저</td>
+				  <td>41,000</td>
+				  <td>18P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(41000,18, 'pdt54');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(41000,18, 'pdt54');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt54">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				
+				<tr id="tr42">
+				  <td>셀라비브 크리미 폼클랜저</td>
+				  <td>41,000</td>
+				  <td>18P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(41000,18, 'pdt42');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(41000,18, 'pdt42');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt42">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				
+				<tr id="tr43">
+				  <td>셀라비브 바이탈라이징 세럼</td>
+				  <td>58,000</td>
+				  <td>27P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(58000,27, 'pdt43');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(58000,27, 'pdt43');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt43">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				
+				<tr id="tr44">
+				  <td>셀라비브 하이드레이팅 아이에센스</td>
+				  <td>64,000</td>
+				  <td>29P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(64000,29, 'pdt44');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(64000,29, 'pdt44');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt44">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				
+				<tr id="tr45">
+				  <td>셀라비브 프로텍티브 데이크림</td>
+				  <td>44,000</td>
+				  <td>19P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(44000,19, 'pdt45');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(44000,19, 'pdt45');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt45">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				
+				<tr id="tr46">
+				  <td>셀라비브 프로텍티브 데이로션</td>
+				  <td>44,000</td>
+				  <td>19P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(44000,19, 'pdt46');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(44000,19, 'pdt46');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt46">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				
+				<tr id="tr47">
+				  <td>셀라비브 리플레니싱 나이트크림</td>
+				  <td>58,000</td>
+				  <td>27P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(58000,27, 'pdt47');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(58000,27, 'pdt47');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt47">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				
+				<tr id="tr48">
+				  <td>셀라비브 리플레니싱 나이트젤</td>
+				  <td>58,000</td>
+				  <td>27P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(58000,27, 'pdt48');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(58000,27, 'pdt48');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt48">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				
+				<tr id="tr56">
+				  <td>셀라비브 브라이트닝 다크스팟 코렉터</td>
+				  <td>62,000</td>
+				  <td>29P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(62000,29, 'pdt56');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(62000,29, 'pdt56');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt56">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr57">
+				  <td>셀라비브 브라이트닝 라이트 컴플렉션 세럼</td>
+				  <td>64,000</td>
+				  <td>30P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(64000,30, 'pdt57');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(64000,30, 'pdt57');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt57">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr58">
+				  <td>셀라비브 브라이트닝 루미너스 모이스처 크림</td>
+				  <td>68,000</td>
+				  <td>31P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(68000,31, 'pdt58');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(68000,31, 'pdt58');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt58">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr59">
+				  <td>셀라비브 비비드 화이트 시트 마스크</td>
+				  <td>32,000</td>
+				  <td>12P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(32000,12, 'pdt59');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(32000,12, 'pdt59');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt59">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr60">
+				  <td>셀라비브 엑스폴레이팅 스크럽 마스크</td>
+				  <td>51,000</td>
+				  <td>23P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(51000,23, 'pdt60');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(51000,23, 'pdt60');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt60">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr62">
+				  <td>래디언트 페이셜오일</td>
+				  <td>72,000</td>
+				  <td>31P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(72000,31, 'pdt62');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(72000,31, 'pdt62');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt62">0</span></b>
+					</button>
+				  </td>
+				</tr>
+                <tr id="tit05">
+                  <th colspan="6" id="title_id">BODY</th>
+                </tr>
+				<tr id="tr29">
+				  <td>너리싱 컨디셔너</td>
+				  <td>18,500</td>
+				  <td>5P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(18500,5, 'pdt29');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(18500,5, 'pdt29');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt29">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr30">
+				  <td>리바이탈라이징 샴푸</td>
+				  <td>18,500</td>
+				  <td>5P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(18500,5, 'pdt30');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(18500,5, 'pdt30');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt30">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr31">
+				  <td>퍼밍 바디 너리셔</td>
+				  <td>31,800</td>
+				  <td>16P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(31800,16, 'pdt31');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(31800,16, 'pdt31');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt31">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr32">
+				  <td>에너자이징 샤워 젤</td>
+				  <td>18,500</td>
+				  <td>5P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(18500,5, 'pdt32');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(18500,5, 'pdt32');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt32">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr33">
+				  <td>바디 선물세트</td>
+				  <td>50,300</td>
+				  <td>20P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(50300,20, 'pdt33');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(50300,20, 'pdt33');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt33">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr35">
+				  <td>스타터킷</td>
+				  <td>20,000</td>
+				  <td>0P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(20000,0, 'pdt35');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(20000,0, 'pdt35');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt35">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr50">
+				  <td>유사나 쉐이커</td>
+				  <td>11,000</td>
+				  <td>0P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(11000,0, 'pdt50');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(11000,0, 'pdt50');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt50">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr61">
+				  <td>택배비</td>
+				  <td>4,000</td>
+				  <td>0P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(4000,0, 'pdt61');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(4000,0, 'pdt61');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt61">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr63">
+				  <td>유사나 지퍼백</td>
+				  <td>4,000</td>
+				  <td>0P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(4000,0, 'pdt63');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(4000,0, 'pdt63');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt63">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr64">
+				  <td>유사나 파우더용기</td>
+				  <td>1,200</td>
+				  <td>0P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(1200,0, 'pdt64');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(1200,0, 'pdt64');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt64">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr65">
+				  <td>샤워젤 펌프</td>
+				  <td>1,700</td>
+				  <td>0P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(1700,0, 'pdt65');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(1700,0, 'pdt65');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt65">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr66">
+				  <td>스프레이 헤드캡</td>
+				  <td>2,400</td>
+				  <td>0P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(2400,0, 'pdt66');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(2400,0, 'pdt66');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt66">0</span></b>
+					</button>
+				  </td>
+				</tr>
+				<tr id="tr67">
+				  <td>파우더 스푼</td>
+				  <td>1,800</td>
+				  <td>0P</td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="plusWon(1800,0, 'pdt67');"><b>+</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-danger btn-sm" onclick="minWon(1800,0, 'pdt67');"><b>-</b></button>
+				  </td>
+				  <td>
+					<button type="button" class="btn btn-block btn-warning btn-sm">
+						<b><span id="pdt67">0</span></b>
+					</button>
+				  </td>
+				</tr>
+			  </table>
+			</div>
+			<!-- /.box-body -->
+		  </div>
+		  
+		  <!-- /.box -->
+		</div>
+      </div>
+    </section>
+    <!-- /.content -->
+	  <footer class="main-footer">
+		<div class="pull-right hidden-xs">
+		  <b>Version</b> 2.4.0
+		</div>
+		<strong>Copyright &copy; 2018 <a href="http://usanain.com">박유영&정재영</a>.</strong> All rights
+		reserved.
+	  </footer>
+  </div>
+  <!-- /.content-wrapper -->
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+
+</body>
+</html>

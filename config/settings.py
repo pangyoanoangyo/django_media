@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mylist.apps.MylistConfig'
+    'mylist.apps.MylistConfig',
+    'django.contrib.humanize' ,#humanize 추가 (숫자에 콤마 추가)
 ]
 
 MIDDLEWARE = [

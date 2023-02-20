@@ -17,6 +17,8 @@ urlpatterns = [
     path('upload/', views.upload, name='upload'),
     path('upload_create/', views.upload_create, name='upload_create'),
     path('upload_modify<int:list_id>', views.upload_modify, name='upload_modify'),
+    path('usana/', views.usana, name='usana'),
+    
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

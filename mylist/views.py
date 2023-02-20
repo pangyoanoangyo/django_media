@@ -17,14 +17,19 @@ from django.shortcuts import render, redirect
 
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-from .models import Profile, Profile_add
-
+from .models import Profile, Profile_add, Usana
 
 def main(request):
     
     profile=Profile_add.objects.all()
     # profile=Profile.objects.get(id=1)
     return render(request,'index.html',{'profile':profile})
+
+
+def usana(request):
+    
+    profile=Usana.objects.all()
+    return render(request,'usana.html',{'profile':profile})
 
 def write(request):
     profile=Profile_add.objects.all()
@@ -82,3 +87,5 @@ def upload_modify(request, list_id):
     return redirect('mylist:main') 
 
 ## python manage.py runserver 8080
+## python manage.py makemigrations
+## python manage.py migrate
