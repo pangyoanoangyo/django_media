@@ -44,3 +44,16 @@ class Usana(models.Model):
     
     def __str__(self):
         return self.title
+class Usana_type(models.Model):
+    title = models.CharField(max_length=200,null=True)
+    type = models.ForeignKey(Usana, on_delete=models.CASCADE)
+    price = models.TextField(null=True)
+    point=models.TextField(null=True)
+    unit_point=models.TextField(null=True)
+    content = models.TextField(null=True)
+    etc=models.TextField(null=True)
+    memo=models.TextField(null=True)    
+    image = models.ImageField(upload_to='images/') #upload_to 옵션을 넣은 것은 BASE_DIR/images/아래에 저장해달라는 말입니다.
+    
+    def __str__(self):
+        return self.title
