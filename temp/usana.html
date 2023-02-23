@@ -10,14 +10,15 @@
     <hr>
     <div class="container">
       <div>
-        <label for="result_price">총 금액</label>
-        <p id="result_price"></p>
+        <label for="total_price">총 금액</label>
+        <p id="total_price"></p>
       </div>
       <div>
         <p id="result_count">총 {{ profile.count }}개</p>
-        <label for="result_point">포인트</label>
-        <p id="result_point"></p>
+        <label for="total_point">포인트</label>
+        <p id="total_point"></p>
       </div>
+      <button id="btn" class="btn btn-primary" style="font-size:0.5vw;" onclick="a()">결제하기</button>
     </div>
     <hr>
 
@@ -30,6 +31,9 @@
             <th>포인트</th>
             <th>Unit</th>
             <th>비고</th>
+            <!-- <th>hide1</th>
+            <th>hide2</th> -->
+
             <!-- <th>수정</th> -->
           </tr>
         </thead>
@@ -42,6 +46,8 @@
             <td id="point">{{ file.point }}P</td>
             <td id="per"></td>
             <td id="product_price">금액표시</td>
+            <!-- <td id="hide1"></td>
+            <td id="hide2"></td> -->
             <!-- <td><a href="{% url 'mylist:modify' file.id %}" class="btn btn-outline-secondary btn-sm" style="font-size:0.5vw; ">수정</a></td> -->
           </tr>
        {% endfor %}
@@ -62,6 +68,36 @@
   let point = document.querySelectorAll('#point');
 
   let result_price = document.querySelector('#result_price');
+
+  let total_point = document.querySelector('#total_point');
+  let total_price = document.querySelector('#total_price');
+
+
+  let hide1 = document.querySelectorAll('#hide1');
+  let hide2 = document.querySelectorAll('#hide2');
+
+
+  function a(){
+    const prices = document.querySelectorAll("#price");  // querySelectorAll은 배열로 반환 이걸로 해야전체를 찾을수 있다 ㅠㅠ
+    const products = document.querySelectorAll("#product_price");
+
+    for (let i = 0; i <73; i++) {
+    let price_value = price[i].textContent;
+    price_value = price_value.replace(/,/g, ''); // 콤마 제거
+    price_value = parseInt(price_value); // 문자열을 숫자로 변환
+
+    let point_value = point[i].textContent;
+    point_value = point_value.replace(/point/g, ''); // point 제거
+    point_value = parseInt(point_value); // 문자열을 숫자로 변환
+
+      sum1 = 0;
+      //sum1 += parseInt(prices[i].innerHTML);
+      sum1 += Number(point_value+price_value);
+      console.log(sum1);
+    };
+    
+  
+};
 
   for (let i = 0; i <73; i++) {
 
@@ -108,7 +144,7 @@
       //소수점 0자리까지 표시
       point_per = point_per.toFixed(0);
 
-      per[i].innerHTML = point_per.toLocaleString() + '원/P';
+      per[i].innerHTML = point_value ==0 ? "포인트없음" : point_per.toLocaleString() + '원/P';
 
       // 가격과 숫자를 곱한 값을 보여주는 부분
       document.addEventListener('click', function(e) {
@@ -125,15 +161,45 @@
           number = parseInt(number);
           let result_price = priceV * number;
           let result_point = priceP * number;
+          
           product_price[i].innerHTML = result_price.toLocaleString() + '원 / '+ result_point + 'P';
-
-          result_point = result_point.toLocaleString();
-          result_price = result_price.toLocaleString();
+          //product_price[i].innerHTML = result_price.toLocaleString() + '원 / '+ result_point + 'P';
 
 
 
-          document.getElementById('result_price').innerHTML = result_price.toLocaleString() + '원';
-          document.getElementById('result_point').innerHTML = result_point + 'P';
+     /** forEach 사용하는 방법
+           const arr = ['apple', 'banana', 'orange'];
+
+            arr.forEach(item => {
+              console.log(item);
+            }); 
+            
+            typeof hide1[0].innerHTML
+
+            hide1[0].innerHTML+hide1[0].innerHTML
+            
+            
+            
+          if (result_point > 0) {
+            product_price[i].style.color = 'red';
+
+            let total1 = 0;
+            product_price[1].nodeValue;
+            total1 += result_price;
+
+
+
+            total_price.innerHTML = total1.toLocaleString() + '원';
+            // total_point.innerHTML = total2 + 'P';;
+
+
+
+          } else {
+            product_price[i].style.color = 'black';
+            result_price = result_price * -1;
+          }**/
+
+
 
 
           

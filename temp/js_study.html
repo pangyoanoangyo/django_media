@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+
+    <p id="a"></p>
+    <br>
+    <p id="b"></p>
+    <p id="c"></p>
+    
+    <div id="div_id"></div>
+    <table>
+        <thead>
+            <tr>
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+                <th>D</th>
+                <th>E</th>
+                <th>F</th>
+                <th>G</th>
+                <th>H</th>
+                <th>I</th>
+                <th>J</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <button id="btn" onclick="test()">버튼</button>
+    <script>
+
+        let test_text = document.createElement("h1");
+        test_text.id = "test_text";
+        test_text.innerHTML = " 테스트 합시다";
+        what = document.querySelector("#div_id");
+        what.appendChild(test_text);
+
+        
+
+        for (var i = 0; i < 10; i++) {
+            let tr_id = document.createElement("tr");
+            tr_id.id = "tr_id" + i;
+            tr_id.className = "tr_id" + i;
+            for (var j = 0; j < 10; j++) {
+                let td_box = document.createElement("td");
+                td_box.id = "td_" + i + "_" + j;
+                td_box.className = "td_box" + j;
+                td_box.innerHTML =  i + j;
+                tr_id.appendChild(td_box);
+            }
+            document.querySelector("tbody").appendChild(tr_id);
+        }
+        for (var i = 0; i < 10; i++) {
+            let tot_box = document.createElement("td");
+            tot_box.id = "total" + i;
+            tot_box.innerHTML = "합계";            
+            document.querySelector("tbody").appendChild(tot_box);
+        }
+        
+        for (var i = 0; i < 6; i++) {
+            var tr_id = document.getElementById("tr_id" + i);
+            
+        }
+/*        function test() {
+            let nums = {};
+            for (let j = 0; j < 10; j++) {
+              for (let i = 0; i < 5; i++) {
+                const className = `td_box${j}`;
+                nums[className] = (nums[className] || 0) + Number(document.getElementsByClassName(className)[i].innerHTML);
+              }
+              const totalId = `total${j}`;
+              const totalElement = document.getElementById(totalId);
+              if (totalElement) {
+                totalElement.innerHTML = nums[`td_box${j}`];
+              }
+            }
+          }
+        */
+
+          
+        
+        let tot1 = document.getElementById("total0");
+        let tot2 = document.getElementById("total1");
+        let tot3 = document.getElementById("total2");
+        let tot4 = document.getElementById("total3");
+        let tot5 = document.getElementById("total4");
+        let tot6 = document.getElementById("total5");
+        let tot7 = document.getElementById("total6");
+        let tot8 = document.getElementById("total7");
+        let tot9 = document.getElementById("total8");
+        let tot10 = document.getElementById("total9");
+
+
+        
+        function test(){ 
+            let nums = {
+                a: 0,
+                b: 0,
+                c: 0,
+                d: 0,
+                e: 0,
+                f: 0,
+                g: 0,
+                h: 0,
+                i: 0,
+                j: 0,
+            };
+
+            
+            for (var i = 0; i < 10; i++) {
+                nums.a += Number(document.getElementsByClassName("td_box0")[i].innerHTML); // 0 1 2 3 4
+                nums.b += Number(document.getElementsByClassName("td_box1")[i].innerHTML); // 1 2 3 4 5
+                nums.c += Number(document.getElementsByClassName("td_box2")[i].innerHTML); // 2 3 4 5 6
+                nums.d += Number(document.getElementsByClassName("td_box3")[i].innerHTML); // 3 4 5 6 7
+                nums.e += Number(document.getElementsByClassName("td_box4")[i].innerHTML); // 4 5 6 7 8
+                nums.f += Number(document.getElementsByClassName("td_box5")[i].innerHTML); // 5 6 7 8 9
+                nums.g += Number(document.getElementsByClassName("td_box6")[i].innerHTML); // 6 7 8 9 10
+                nums.h += Number(document.getElementsByClassName("td_box7")[i].innerHTML); // 7 8 9 10 11
+                nums.i += Number(document.getElementsByClassName("td_box8")[i].innerHTML); // 8 9 10 11 12
+                nums.j += Number(document.getElementsByClassName("td_box9")[i].innerHTML); // 9 10 11 12 13
+
+                };
+            
+            tot1.innerHTML = nums.a;
+            tot2.innerHTML = nums.b;
+            tot3.innerHTML = nums.c;
+            tot4.innerHTML = nums.d;
+            tot5.innerHTML = nums.e;
+            tot6.innerHTML = nums.f;
+            tot7.innerHTML = nums.g;
+            tot8.innerHTML = nums.h;
+            tot9.innerHTML = nums.i;
+            tot10.innerHTML = nums.j;
+            
+           }
+
+    </script>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            width: 150px;
+            border: 1px solid black;
+        }
+    </style>
+</body>
+</html>
