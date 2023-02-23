@@ -60,45 +60,17 @@
   
   let product = document.querySelectorAll('#product');
   let product_price = document.querySelectorAll('#product_price');
-  let numberText = document.querySelectorAll('#numberText');
-
+  let numbers = document.querySelectorAll('#nums');  
   let per = document.querySelectorAll('#per');
-
-  let price = document.querySelectorAll('#price');
+  let price = document.querySelectorAll('#price');// querySelectorAll은 배열로 반환 이걸로 해야전체를 찾을수 있다 ㅠㅠ
   let point = document.querySelectorAll('#point');
-
   let result_price = document.querySelector('#result_price');
-
   let total_point = document.querySelector('#total_point');
   let total_price = document.querySelector('#total_price');
-
-
   let hide1 = document.querySelectorAll('#hide1');
   let hide2 = document.querySelectorAll('#hide2');
 
-
-  function a(){
-    const prices = document.querySelectorAll("#price");  // querySelectorAll은 배열로 반환 이걸로 해야전체를 찾을수 있다 ㅠㅠ
-    const products = document.querySelectorAll("#product_price");
-
-    for (let i = 0; i <73; i++) {
-    let price_value = price[i].textContent;
-    price_value = price_value.replace(/,/g, ''); // 콤마 제거
-    price_value = parseInt(price_value); // 문자열을 숫자로 변환
-
-    let point_value = point[i].textContent;
-    point_value = point_value.replace(/point/g, ''); // point 제거
-    point_value = parseInt(point_value); // 문자열을 숫자로 변환
-
-      sum1 = 0;
-      //sum1 += parseInt(prices[i].innerHTML);
-      sum1 += Number(point_value+price_value);
-      console.log(sum1);
-    };
-    
-  
-};
-
+  let result_count = document.querySelector('#result_count');
   for (let i = 0; i <73; i++) {
 
       // "+" 버튼 생성
@@ -107,9 +79,11 @@
       product[i].appendChild(addButton);
 
       // 숫자 텍스트 생성
-      let numberText = document.createTextNode(0);
-      numberText.id = 'numberText';
-      product[i].appendChild(numberText);
+      //let numberText = document.createTextNode(0);
+      let nums = document.createElement('p');
+      nums.textContent = 0;
+      nums.id = 'nums';
+      product[i].appendChild(nums);
 
       // "-" 버튼 생성
       let minusButton = document.createElement('button');
@@ -118,19 +92,19 @@
 
       // "+" 버튼에 이벤트 리스너 추가
       addButton.addEventListener('click', function() {
-        let number = parseInt(numberText.textContent);
+        let number = parseInt(nums.textContent);
         number++;
-        numberText.textContent = number;
+        nums.textContent = number;
       });
 
       // "-" 버튼에 이벤트 리스너 추가
       minusButton.addEventListener('click', function() {
-        let number = parseInt(numberText.textContent);
+        let number = parseInt(nums.textContent);
         number--;
-        numberText.textContent = number;
+        nums.textContent = number;
       });
 
-
+      
       let price_value = price[i].textContent;
       price_value = price_value.replace(/,/g, ''); // 콤마 제거
       price_value = parseInt(price_value); // 문자열을 숫자로 변환
@@ -138,14 +112,13 @@
       let point_value = point[i].textContent;
       point_value = point_value.replace(/point/g, ''); // point 제거
       point_value = parseInt(point_value); // 문자열을 숫자로 변환
-      
-      
+
       let point_per = price_value/point_value;
       //소수점 0자리까지 표시
       point_per = point_per.toFixed(0);
-
       per[i].innerHTML = point_value ==0 ? "포인트없음" : point_per.toLocaleString() + '원/P';
 
+  
       // 가격과 숫자를 곱한 값을 보여주는 부분
       document.addEventListener('click', function(e) {
         if (e.target.tagName === 'BUTTON') {
@@ -157,76 +130,45 @@
           priceP = priceP.replace(/point/g, ''); // point 제거
           priceP = parseInt(priceP); // 문자열을 숫자로 변환
 
-          let number = numberText.textContent;
+          let number = nums.textContent;
           number = parseInt(number);
           let result_price = priceV * number;
           let result_point = priceP * number;
           
           product_price[i].innerHTML = result_price.toLocaleString() + '원 / '+ result_point + 'P';
           //product_price[i].innerHTML = result_price.toLocaleString() + '원 / '+ result_point + 'P';
-
-
-
-     /** forEach 사용하는 방법
-           const arr = ['apple', 'banana', 'orange'];
-
-            arr.forEach(item => {
-              console.log(item);
-            }); 
-            
-            typeof hide1[0].innerHTML
-
-            hide1[0].innerHTML+hide1[0].innerHTML
-            
-            
-            
-          if (result_point > 0) {
-            product_price[i].style.color = 'red';
-
-            let total1 = 0;
-            product_price[1].nodeValue;
-            total1 += result_price;
-
-
-
-            total_price.innerHTML = total1.toLocaleString() + '원';
-            // total_point.innerHTML = total2 + 'P';;
-
-
-
-          } else {
-            product_price[i].style.color = 'black';
-            result_price = result_price * -1;
-          }**/
-
-
-
-
-          
+         
         }
       });
-}
 
+  function a(){
+    for (let i = 0; i <73; i++) {
+    let price_value = price[i].textContent;
+    price_value = price_value.replace(/,/g, ''); // 콤마 제거
+    price_value = parseInt(price_value); // 문자열을 숫자로 변환
 
-  
-  //document.addEventListener('click', function(e) {
-    /* if (e.target.id === 'hide_id') {
-      e.target.style.display = 'none';
-    } else {
-      e.target.style.display = 'block';
-    } */
-    //window.location.href = '/modify'+e.target.id;
-    //window.location.href = "{% url 'mylist:modify' 1 %}";
+    let point_value = point[i].textContent;
+    point_value = point_value.replace(/point/g, ''); // point 제거
+    point_value += parseInt(point_value); // 문자열을 숫자로 변환
+
+    let number = nums.textContent;
+    number = parseInt(number);
     
+    let result_price = price_value * number;
+    let result_point = point_value * number;
 
+    
+    let sum1 = 0;
+    let sum2 = 0;
 
-    function delete_confirm(){
-        if(confirm("정말 삭제하시겠습니까?")){
-            return true;
-        }else{
-            return false;
-        }
-    }
+    sum1 += price_value ;
+    sum2 += point_value ;
+    
+      total_price.innerHTML = sum1.toLocaleString() + '원';
+      total_point.innerHTML = sum2.toLocaleString() + 'P';
+    };
+  }
+}
 </script>
 <style>
     form {
@@ -256,6 +198,10 @@
     tr:hover {
       background-color: rgb(16, 201, 255);
       color: white;
+    }
+    #nums{
+      width: 20px;
+      text-align: center;
     }
 
     @media screen and (min-width: 1000px){
