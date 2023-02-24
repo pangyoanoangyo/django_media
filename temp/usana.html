@@ -69,8 +69,44 @@
   let total_price = document.querySelector('#total_price');
   let hide1 = document.querySelectorAll('#hide1');
   let hide2 = document.querySelectorAll('#hide2');
+  
 
   let result_count = document.querySelector('#result_count');
+
+   
+  function a(){
+    point.forEach(function (points, index, array) {
+      let nums_value = nums[index].textContent;
+      nums_value = parseInt(nums_value); // 문자열을 숫자로 변환
+      //console.log(nums_value);
+      
+      let point_value = point[index].textContent;
+      point_value = point_value.replace(/point/g, ''); // point 제거
+      point_value = parseInt(point_value); // 문자열을 숫자로 변환
+      //console.log(point_value);
+    
+      let price_value = price[index].textContent;
+      price_value = price_value.replace(/,/g, ''); // 콤마 제거
+      price_value = parseInt(price_value); // 문자열을 숫자로 변환
+      //console.log(price_value);
+
+     ab = nums_value * point_value;
+         
+      b = nums_value * price_value;
+
+
+      console.log(typeof ab);
+      console.log(b);
+
+      total_price.innerHTML = ab;
+    });
+  }
+
+
+
+
+  
+  //for문 시작
   for (let i = 0; i <73; i++) {
 
       // "+" 버튼 생성
@@ -140,9 +176,13 @@
          
         }
       });
+    }
+    //for문 끝
 
-  function a(){
-    for (let i = 0; i <73; i++) {
+
+  
+
+/*for (let i = 0; i <73; i++) {
     let price_value = price[i].textContent;
     price_value = price_value.replace(/,/g, ''); // 콤마 제거
     price_value = parseInt(price_value); // 문자열을 숫자로 변환
@@ -168,7 +208,9 @@
       total_point.innerHTML = sum2.toLocaleString() + 'P';
     };
   }
-}
+  */
+
+
 </script>
 <style>
     form {
