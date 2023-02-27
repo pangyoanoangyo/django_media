@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+
+<h3 id="q1"> </h3>
+<h3 id="q2"> </h3>
+<h3 id="a1"> </h3>
+<button id="btn" onclick="btn()">버튼</button>
+
+<script>    
+let questions = document.createElement("q1");
+
+let arr = [1, 2, 3, 4, 5,6];
+let arr_name = ["김상석","김상필","김상수","이진옥","고성숙","서지수"];
+// for문의 개념
+for (var i = 0; i < arr.length; i++) {
+    console.log("일반 for문의 숫자는 " + arr[i] + "입니다.");
+}
+
+// for in문의 개념
+for (var i in arr) {
+    console.log("일반 for-in문의 숫자는 " + arr[i] + "입니다.");
+}
+
+
+// forEach문의 개념 
+//아래의 3개가 다 같은거다
+
+arr.forEach(function arrs(content, index) {
+    console.log("인덱스는"+index, "내용은"+content+"입니다.");
+});
+
+// () => {} 는 function(){}과 같다
+arr.forEach((content, index) => {
+    console.log("인덱스는"+index, "내용은"+content+"입니다.");
+});
+
+// map은 배열을 반환한다
+// map은 리턴이 있어야한다. 그리고 변수를 선언해야한다.
+
+let array_name = arr.map((content) => {
+    return content;
+});
+console.log("map의 값은" + array_name);
+
+
+// find는 배열의 첫번째 값을 반환한다.
+let array_name2 = arr_name.find((content) => {
+    return content.startsWith = "김";
+});
+console.log("find의 값은"+array_name2);
+
+// filter는 배열의 모든 값을 반환한다.
+let array_name3 = arr_name.filter((content) => {
+    return content = "김";
+});
+console.log("filter의 값은" +array_name3);
+// 배열로 반환한다.
+
+// some은 boolean값을 반환한다.
+let array_name4 = arr_name.some((content) => {
+    return content = "김";
+});
+console.log("some의 값은" +array_name4);
+
+// every는 boolean값을 반환한다.
+let array_name5 = arr_name.every((content) => {
+    return content = "망";
+});
+console.log("every의 값은" +array_name5);
+
+
+</script>
+<style>
+
+</style>
+</body>
+</html>

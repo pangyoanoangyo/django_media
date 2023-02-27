@@ -9,19 +9,51 @@
     <h1>포인트 관리</h1>
     <hr>
     <div class="container">
-      <div>
-        <label for="total_price">총 금액</label>
-        <p id="total_price"></p>
+      <div class="tot">
+        <div>
+          <label for="total_price">총 금액</label>
+          <p id="total_price">0원</p>
+        </div>
+        <div>
+          <label for="total_point">포인트</label>
+          <p id="total_point">0P</p>      
+        </div>
+       <div>
+          <!-- <p id="result_count">총 {{ profile.count }}개</p> -->
+          <label for="result_count">수량</label>
+          <p id="result_count">0개</p>        
+        </div>
+        <div>
+          <label for="price_per_point">포인트 당 가격</label>
+          <p id="price_per_point">0원/P</p>
+        </div>
       </div>
-      <div>
-        <p id="result_count">총 {{ profile.count }}개</p>
-        <label for="total_point">포인트</label>
-        <p id="total_point"></p>
-      </div>
-      <button id="btn" class="btn btn-primary" style="font-size:0.5vw;" onclick="a()">결제하기</button>
     </div>
     <hr>
-
+    <div id="btn" class="container" style="display:none">
+      <button  class="btn btn-primary" style="font-size:0.5vw;" onclick="window.location.reload()">초기화</button>
+      <button  class="btn btn-danger" style="font-size:0.5vw;" onclick="modals()">내역확인</button>
+      <br>
+      <br>
+    </div>
+    <div id="maodals" style="display: none;">
+      <table class="table align-items-center">
+        <thead>
+          <tr>
+            <th width="150px">품명</th>
+            <th>수량</th>                          
+          </tr>
+        </thead>
+        <tbody>
+        {% for file in profile %}          
+            <tr id="title" >
+              <td width="150px">{{ file.title }}</td> 
+              <td id="numbers"></td>                 
+            </tr>          
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
     <table class="table align-items-center">
         <thead>
           <tr>
@@ -31,21 +63,17 @@
             <th>포인트</th>
             <th>Unit</th>
             <th>비고</th>
-            <!-- <th>hide1</th>
-            <th>hide2</th> -->
-
-            <!-- <th>수정</th> -->
           </tr>
         </thead>
         <tbody>
         {% for file in profile %}
           <tr>
-            <td width="150px">{{ file.title }}</td>
-            <td id="product"></td>
-            <td id="price">{{ file.price|intcomma}}원</td> <!-- 천단위에 콤마찍는 라이브러리-->
-            <td id="point">{{ file.point }}P</td>
-            <td id="per"></td>
-            <td id="product_price">금액표시</td>
+             <td width="150px">{{ file.title }}</td> <!--이부분이 품명 -->
+            <td id="product"></td> <!--이부분이 수량 -->
+            <td id="price">{{ file.price|intcomma}}원</td> <!-- 단가 /천단위에 콤마찍는 라이브러리-->
+            <td id="point">{{ file.point }}P</td> <!-- 포인트 -->
+            <td id="per"></td> <!-- 단가와 포인트-->
+            <td id="product_price">금액표시</td> <!--최종 / 가격 -->
             <!-- <td id="hide1"></td>
             <td id="hide2"></td> -->
             <!-- <td><a href="{% url 'mylist:modify' file.id %}" class="btn btn-outline-secondary btn-sm" style="font-size:0.5vw; ">수정</a></td> -->
@@ -54,56 +82,81 @@
         </tbody>
         <!-- {{ file.image.url }}<br> -->
     </table>
-    <a href="{% url 'mylist:write' %}" class="btn btn-primary"  style="font-size:0.5vw;">신규 작성</a>
 </div>
+
+
+
 <script>
-  
+  let modals = ()=>{
+    let number_text = document.querySelectorAll('#nums');
+    let titles = document.querySelectorAll('#title');
+    let modal1 = document.getElementById('maodals');
+    modal1.style.display = "flex";
+    a = [];
+    for(let i=0; i<number_text.length; i++){
+     a.push(number_text[i].textContent);
+     let number1 = document.querySelectorAll('#numbers');
+     number1[i].innerHTML = a[i];
+     if (a[i] == 0){
+      titles[i].style.display = "none";
+     } else {
+      titles[i].style.display = "table-row";
+     }
+    }
+ }
+
   let product = document.querySelectorAll('#product');
   let product_price = document.querySelectorAll('#product_price');
   let numbers = document.querySelectorAll('#nums');  
   let per = document.querySelectorAll('#per');
   let price = document.querySelectorAll('#price');// querySelectorAll은 배열로 반환 이걸로 해야전체를 찾을수 있다 ㅠㅠ
+  
+  price = Array.from(price);
+
   let point = document.querySelectorAll('#point');
   let result_price = document.querySelector('#result_price');
   let total_point = document.querySelector('#total_point');
   let total_price = document.querySelector('#total_price');
-  let hide1 = document.querySelectorAll('#hide1');
-  let hide2 = document.querySelectorAll('#hide2');
-  
-
   let result_count = document.querySelector('#result_count');
+  let buttons = document.getElementById('btn');
+  
+  product_price = Array.from(product_price);
+  //console.log("Array를 변경하면 "+ product_price);
+  
+   // 화살표 함수표현식은 function calc(){} ->  const calc = () =>{} 와 같이 사용할 수 있다.
 
-   
-  function a(){
-    point.forEach(function (points, index, array) {
-      let nums_value = nums[index].textContent;
-      nums_value = parseInt(nums_value); // 문자열을 숫자로 변환
-      //console.log(nums_value);
-      
-      let point_value = point[index].textContent;
-      point_value = point_value.replace(/point/g, ''); // point 제거
-      point_value = parseInt(point_value); // 문자열을 숫자로 변환
-      //console.log(point_value);
+   const calc = () => {
+    let sum_price = 0;
+    let sum_point = 0;
+    let count = 0;
     
-      let price_value = price[index].textContent;
-      price_value = price_value.replace(/,/g, ''); // 콤마 제거
-      price_value = parseInt(price_value); // 문자열을 숫자로 변환
-      //console.log(price_value);
+    product_price.forEach((contents, index) => {
+      let b = price[index].textContent;
+      b = b.replace(/,/g, '');
+      b = parseInt(b);
+      let n = parseInt(product[index].querySelector('#nums').textContent);
+      let p = parseInt(point[index].textContent);
+      sum_price += b * n;
+      sum_point += p * n;
+      count += n;
 
-     ab = nums_value * point_value;
-         
-      b = nums_value * price_value;
-
-
-      console.log(typeof ab);
-      console.log(b);
-
-      total_price.innerHTML = ab;
     });
+    total_price.innerHTML = sum_price.toLocaleString() + '원';
+    total_point.innerHTML = sum_point.toLocaleString() + 'P';
+    result_count.innerHTML = count.toLocaleString() + '개';
+    buttons.style.display = "block";
+
+
+  // 포인트 당 가격 계산
+  let avg_price_per_point = sum_price / sum_point;
+  avg_price_per_point = avg_price_per_point.toFixed(0);
+  avg_price_per_point = avg_price_per_point.toLocaleString();
+
+  // 포인트 당 가격 출력
+  let price_per_point = document.querySelector('#price_per_point');
+  price_per_point.innerHTML = avg_price_per_point + '원/P';    
   }
-
-
-
+  
 
   
   //for문 시작
@@ -112,18 +165,21 @@
       // "+" 버튼 생성
       let addButton = document.createElement('button');
       addButton.textContent = '+';
+      addButton.className = 'btn btn-primary btn-sm';
       product[i].appendChild(addButton);
 
       // 숫자 텍스트 생성
       //let numberText = document.createTextNode(0);
-      let nums = document.createElement('p');
+      let nums = document.createElement('h6');
       nums.textContent = 0;
-      nums.id = 'nums';
+      nums.id = 'nums';;
       product[i].appendChild(nums);
-
+      
+      
       // "-" 버튼 생성
       let minusButton = document.createElement('button');
       minusButton.textContent = '-';
+      minusButton.className = 'btn btn-danger btn-sm';      
       product[i].appendChild(minusButton);
 
       // "+" 버튼에 이벤트 리스너 추가
@@ -131,6 +187,7 @@
         let number = parseInt(nums.textContent);
         number++;
         nums.textContent = number;
+        calc();
       });
 
       // "-" 버튼에 이벤트 리스너 추가
@@ -138,7 +195,10 @@
         let number = parseInt(nums.textContent);
         number--;
         nums.textContent = number;
+        calc();
       });
+
+
 
       
       let price_value = price[i].textContent;
@@ -180,35 +240,6 @@
     //for문 끝
 
 
-  
-
-/*for (let i = 0; i <73; i++) {
-    let price_value = price[i].textContent;
-    price_value = price_value.replace(/,/g, ''); // 콤마 제거
-    price_value = parseInt(price_value); // 문자열을 숫자로 변환
-
-    let point_value = point[i].textContent;
-    point_value = point_value.replace(/point/g, ''); // point 제거
-    point_value += parseInt(point_value); // 문자열을 숫자로 변환
-
-    let number = nums.textContent;
-    number = parseInt(number);
-    
-    let result_price = price_value * number;
-    let result_point = point_value * number;
-
-    
-    let sum1 = 0;
-    let sum2 = 0;
-
-    sum1 += price_value ;
-    sum2 += point_value ;
-    
-      total_price.innerHTML = sum1.toLocaleString() + '원';
-      total_point.innerHTML = sum2.toLocaleString() + 'P';
-    };
-  }
-  */
 
 
 </script>
@@ -237,13 +268,32 @@
       border-bottom: 0.2px solid grey;
       cursor: pointer;
     }
-    tr:hover {
-      background-color: rgb(16, 201, 255);
-      color: white;
-    }
+
     #nums{
-      width: 20px;
-      text-align: center;
+      width: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #product{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+    .tot{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #btn{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
     }
 
     @media screen and (min-width: 1000px){
@@ -257,6 +307,10 @@
         display: none;
       }
     }
+
+
+    
+    
 </style>
 
 
