@@ -26,12 +26,14 @@
           <p id="result_count">0개</p>        
         </div>
         <div>
-          <label for="price_per_point">포인트 당 금액</label>
+          <label for="price_per_point">금액/P</label>
           <p id="price_per_point">0원/P</p>
         </div>
       </div>
     </div>
-    <hr>
+    <br id="brs"> 
+    <br id="brs"> 
+    
     <div id="btn_box" class="container">
       <button id="btn" class="btn btn-primary" style=" display:none" onclick="window.location.reload()">초기화</button>
       <button id="btn" class="btn btn-danger" style=" display:none" onclick="modals('open')">내역확인</button>
@@ -55,7 +57,7 @@
         {% endfor %}
         </tbody>
       </table>
-      <p>10% 인하 적용시 : <span id="discount"></span> 입니다!</p>      
+      <p>10% 인하 금액: <span id="discount"></span></p>      
       <button id="btn" class="btn btn-secondary btn-sm" onclick="modals('close')">닫기</button>
     </dialog>
     <!-- 모달창 끝 -->
@@ -80,13 +82,9 @@
             <td id="point">{{ file.point }}P</td> <!-- 포인트 -->
             <td id="per"></td> <!-- 단가와 포인트-->
             <td id="product_price">금액표시</td> <!--최종 / 가격 -->
-            <!-- <td id="hide1"></td>
-            <td id="hide2"></td> -->
-            <!-- <td><a href="{% url 'mylist:modify' file.id %}" class="btn btn-outline-secondary btn-sm" style="font-size:0.5vw; ">수정</a></td> -->
           </tr>
        {% endfor %}
         </tbody>
-        <!-- {{ file.image.url }}<br> -->
     </table>
 </div>
 
@@ -143,6 +141,12 @@
    // 화살표 함수표현식은 function calc(){} ->  const calc = () =>{} 와 같이 사용할 수 있다.
 
   const calc = () => {
+
+    let brs = document.querySelectorAll('#brs');    
+    console.log("brs 확인 " + brs);
+    brs[0].style.display = "none";
+    brs[1].style.display = "none";  
+
     let sum_price = 0;
     let sum_point = 0;
     let count = 0;
@@ -163,14 +167,13 @@
     result_count.innerHTML = count.toLocaleString() + '개';
 
     console.log("합계금액 확인 " + sum_price);
-    discount_result = sum_price * 0.9;
-    discount_result = discount_result.toFixed(0).toLocaleString();
+    discount_result = sum_price-(sum_price*0.1);
+    discount_result = discount_result.toLocaleString();
     console.log("할인금액 90프로 " + discount_result);
 
     buttons[0].style.display = "flex";
     buttons[1].style.display = "flex";
     console.log("정상작동 확인 150");
-
 
     // 포인트 당 가격 계산
     let avg_price_per_point = sum_price / sum_point;
@@ -179,7 +182,7 @@
 
     // 포인트 당 가격 출력
     let price_per_point = document.querySelector('#price_per_point');
-    price_per_point.innerHTML = avg_price_per_point + '원/P';    
+    price_per_point.innerHTML = avg_price_per_point + '원/P';  
   }
   
   //for문 시작
@@ -224,6 +227,7 @@ for (let i = 0; i <73; i++) {
     nums.textContent = number;
     calc();
   });
+
   let price_value = price[i].textContent;
   price_value = price_value.replace(/,/g, ''); // 콤마 제거
   price_value = parseInt(price_value); // 문자열을 숫자로 변환
@@ -274,12 +278,10 @@ console.log("정상작동 확인 238");
   font-family: 'Gothic A1', sans-serif;
   font-weight: bold;
   text-align: center;
-  
 }
 
-
 #product_name{
-  width: 100px;
+  width: 150px;
   font-size: 12px;
   font-weight: bold;
 }
@@ -312,6 +314,7 @@ td{
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
 }#btn_tag{
   display: flex;
   flex-direction: row;
@@ -368,12 +371,12 @@ td{
   font-family: 'Gothic A1', sans-serif;
 }
 .tot>div{
-  font-size: 20px;
+  font-size: 18px;
   font-family: 'Gothic A1', sans-serif;
   font-weight: bold;
 }
 .tot>div>p{
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
   color: brown;
 }
@@ -388,11 +391,16 @@ dialog {
   border-radius: 10px; /* 모달의 테두리를 둥글게 지정 */
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2); /* 모달의 그림자를 지정 */
   font-family: 'Gothic A1', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: bold;
   color: brown;
   text-align: center;
-
+}
+#discount{
+  font-size: 30px;
+  font-weight: bold;
+  color: midnightblue;
+  text-align: center;
 }
 
 @media screen and (min-width: 1000px){
